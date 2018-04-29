@@ -1,12 +1,100 @@
 # marc-transformed
 
-Read, manipulate and write MARC records using NodeJS streams.
+Read, manipulate and write [MARC](https://www.loc.gov/marc/) records using NodeJS streams.
+
+
+## Compatibility 
+
+* NodeJS LTS Carbon (v8.11) or later
+* JavaScript ES2016 or later
+* TypeScript 2.8 or later
 
 
 
-## Futher documentation
 
+## Examples
+
+
+### Converting a MARC file into text format
+
+This example creates a text (MarcEdit-compatible) file from the records in a MARC file in transmission (aka binary)
+format. No changes are made to the fields and subfields in the records.
+
+```typescript
+import fs from 'fs'
+import { transformFrom, transformTo } from '@sydneyunilibrary/marc-transformed'
+
+const inputFilename = 'input.mrc'
+const outputFilename = 'output.mrk8'
+
+console.log('Converting', inputFilename, 'to', outputFilename)
+fs.pipeline(
+  fs.createReadStream(inputFilename),
+  transformFrom('marc'),
+  transformTo('text'),
+  fs.createWriteStream(outputFilename),
+  err => {
+    if (err) {
+      console.error(err)
+    } else {
+      console.log('Done')
+    }
+  }
+)
+```
+
+
+### Template for altering records
+
+This is some boiler-plate that you can use if you want to read in a file of records, work on each record in some way,
+and then write them out to a different file.
+
+Note that this technique only works if you are working on one record at a time.
+
+```typescript
+import fs from 'fs'
+import { transformFrom, transformTo, transformRecord, Record } from '@sydneyunilibrary/marc-transformed'
+
+const inputFilename = 'input.mrc'
+const inputFormat = 'marc' // or 'json' or 'xml' or 'text'
+const outputFilename = 'output.mrc'
+const outputFormat = 'marc' // or 'json' or 'xml' or 'text'
+
+function transformFunction(record: Record): Record | null | undefined {
+  // TODO: Use the methods on Record and Field to change the record in some way. See API.md for help.
+  // TODO: Return the record if you want to include it in the output file, 
+  //       return null or undefined if you want to filter it out,
+  //       or throw an Error if you want abort the program. 
+  return record 
+}
+
+console.log('Transforming records in', inputFilename, 'into', outputFilename)
+fs.pipeline(
+  fs.createReadStream(inputFilename),
+  transformFrom(inputFormat),
+  transformRecord(transformFunction),
+  transformTo(outputFormat),
+  fs.createWriteStream(outputFilename),
+  err => {
+    if (err) {
+      console.error(err)
+    } else {
+      console.log('Done')
+    }
+  }
+)
+``` 
+
+
+
+## Further documentation
+
+* [API](API.md)
 * [Frequently asked questions](FAQ.md)
+
+If you not using `marc-transformed` but are hacking at the code for `marc-transformed` itself:
+
+* [Internal API](INTERNAL-API.md)  
 
 
 
