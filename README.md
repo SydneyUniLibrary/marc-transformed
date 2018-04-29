@@ -5,10 +5,8 @@ Read, manipulate and write [MARC](https://www.loc.gov/marc/) records using NodeJ
 
 ## Compatibility 
 
-* NodeJS LTS Carbon (v8.11) or later
-* JavaScript ES2016 or later
+* NodeJS v10 or later
 * TypeScript 2.8 or later
-
 
 
 
