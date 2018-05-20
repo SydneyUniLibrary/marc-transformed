@@ -59,7 +59,7 @@ const outputFilename = 'output.mrc'
 const outputFormat = 'marc' // or 'json' or 'xml' or 'text'
 
 function transformFunction(record: Record): Record | null | undefined {
-  // TODO: Use the methods on Record and Field to change the record in some way. See API.md for help.
+  api.md
   // TODO: Return the record if you want to include it in the output file, 
   //       return null or undefined if you want to filter it out,
   //       or throw an Error if you want abort the program. 
@@ -87,12 +87,19 @@ fs.pipeline(
 
 ## Further documentation
 
-* [API](API.md)
-* [Frequently asked questions](FAQ.md)
+`marc-transformed` has 2 major parts to its API.
+
+* [Transform API](docs/transform-api.md) - An API transforming to and from streams of bytes and streams of `Record` objects.
+* [Record API](docs/record-api.md) - An API for creating, query and editing MARC records and fields.
+
+Additionally:
+
+* [Frequently asked questions](docs/faq.md)
+* [Examples](docs/examples.md)
 
 If you not using `marc-transformed` but are hacking at the code for `marc-transformed` itself:
 
-* [Internal API](INTERNAL-API.md)  
+* [Internal API](docs/internal-api.md)  
 
 
 
