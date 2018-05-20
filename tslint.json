@@ -5,8 +5,9 @@
   "rules": {
     "arrow-parens": [ true, "ban-single-arg-parens" ],
     "no-console": false,
-    "no-consecutive-blank-lines": [ true, 4],
+    "no-consecutive-blank-lines": [ true, 4 ],
     "no-null-keyword": true,
+    "object-literal-sort-keys": false,
     "prefer-const": false,
     "quotemark": [ true, "single", "avoid-escape" ],
     "semicolon": [ true, "never" ]
